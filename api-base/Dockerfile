@@ -1,0 +1,27 @@
+FROM unicon/grouper-java-base:1.7.0_79
+
+MAINTAINER John Gasper <jgasper@unicon.net>
+
+ENV GROUPER_VERSION=2.2.2
+
+COPY patch-scripts/ /opt/patch-scripts/
+
+RUN yum update -y \
+    && yum install -y wget tar \
+    && yum clean all \
+    \
+    && echo 'Downloading Grouper Installer...' \
+    && wget -q http://software.internet2.edu/grouper/release/$GROUPER_VERSION/grouperInstaller.jar \
+    \
+    && echo 'Downloading Grouper API...'\
+    && wget -q http://software.internet2.edu/grouper/release/$GROUPER_VERSION/grouper.apiBinary-$GROUPER_VERSION.tar.gz \
+    && tar -zxf grouper.apiBinary-$GROUPER_VERSION.tar.gz -C /opt \
+    \
+    && echo 'Patching Grouper API...'\
+    && mkdir /tmp/grp-api/ \
+    && cp /opt/patch-scripts/grouper.installer-api.properties /grouper.installer.properties \
+    && $JAVA_HOME/bin/java -cp .:/grouperInstaller.jar edu.internet2.middleware.grouperInstaller.GrouperInstaller \
+    \
+    && rm -rf grouper.apiBinary-$GROUPER_VERSION.tar.gz /tmp/grp-api/  /grouper.installer.properties
+    
+
