@@ -21,5 +21,8 @@ RUN yum update -y \
     && $JAVA_HOME/bin/java -cp .:/opt/grouperInstaller.jar edu.internet2.middleware.grouperInstaller.GrouperInstaller \
     \
     && rm -rf grouper.psp-$GROUPER_VERSION.tar.gz /tmp/grp-psp/ /grouper.installer.properties
-    
+
+WORKDIR /opt/grouper.apiBinary-$GROUPER_VERSION/
+
+CMD ["/bin/sh", "bin/gsh", "-loader"]
 
