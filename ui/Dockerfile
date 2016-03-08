@@ -25,6 +25,6 @@ RUN yum update -y \
     && mkdir /tmp/grp-ui/ \
     && cd / \
     && cp /opt/patch-scripts/grouper.installer-ui.properties /grouper.installer.properties \
-    && $JAVA_HOME/bin/java -cp .:/grouperInstaller.jar edu.internet2.middleware.grouperInstaller.GrouperInstaller \
+    && $JAVA_HOME/bin/java -cp .:/opt/grouperInstaller.jar edu.internet2.middleware.grouperInstaller.GrouperInstaller \
     \
     && rm -rf grouper.ui-$GROUPER_VERSION.tar.gz /tmp/grp-ui/ /grouper.installer.properties

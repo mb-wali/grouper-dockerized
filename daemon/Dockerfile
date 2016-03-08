@@ -18,7 +18,7 @@ RUN yum update -y \
     && echo 'Patching Grouper PSP...'\
     && mkdir /tmp/grp-psp/ \
     && cp /opt/patch-scripts/grouper.installer-psp.properties /grouper.installer.properties \
-    && $JAVA_HOME/bin/java -cp .:/grouperInstaller.jar edu.internet2.middleware.grouperInstaller.GrouperInstaller \
+    && $JAVA_HOME/bin/java -cp .:/opt/grouperInstaller.jar edu.internet2.middleware.grouperInstaller.GrouperInstaller \
     \
     && rm -rf grouper.psp-$GROUPER_VERSION.tar.gz /tmp/grp-psp/ /grouper.installer.properties
     
