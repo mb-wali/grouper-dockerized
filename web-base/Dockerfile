@@ -11,6 +11,7 @@ RUN yum update -y \
     && echo "409e93f383ec476cde4c9b87f2427dbf  apache-tomcat-6.0.44.zip" | md5sum -c - \
     && unzip apache-tomcat-6.0.44.zip -d /opt \    
     && rm apache-tomcat-6.0.44.zip \
+    && find /opt/apache-tomcat-6.0.44/bin/ -name "*.sh" -exec chmod a+x {} \; \
     \
     && echo 'Downloading Ant...'\
     && wget -q https://archive.apache.org/dist/ant/binaries/apache-ant-1.9.5-bin.zip \
@@ -20,3 +21,5 @@ RUN yum update -y \
     && chmod +x /opt/apache-ant-1.9.5/bin/ant
 
 EXPOSE 8080
+
+CMD ["/opt/apache-tomcat-6.0.44/bin/catalina.sh", "run"]
