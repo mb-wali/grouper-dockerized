@@ -16,7 +16,7 @@ RUN yum update -y \
     && wget -q https://archive.apache.org/dist/ant/binaries/apache-ant-1.9.5-bin.zip \
     && unzip apache-ant-1.9.5-bin.zip -d /opt \
     && echo "8c4193db6ac91c3f792a04715f8e9a82ef628daf  apache-ant-1.9.5-bin.zip" | sha1sum -c - \
-    && rm apache-ant-1.9.5-bin.zip \
+    && rm -rf apache-ant-1.9.5-bin.zip /opt/apache-tomcat-6.0.44/webapps/* \
     && chmod +x /opt/apache-ant-1.9.5/bin/ant
 
 EXPOSE 8080
