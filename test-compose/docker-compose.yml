@@ -1,0 +1,51 @@
+version: "2"
+
+services:
+  #This handles all of the http request to simple cert issues and both the SP and IdP can share the same ports.
+  daemon:
+    build: ./daemon/
+    depends_on: 
+     - ldap
+     - mysql
+    networks:
+     - front
+     - back
+
+#  ui:
+#    build: ./ui/
+#    depends_on: 
+#     - ldap
+#     - mysql
+#    networks:
+#     - front
+#     - back
+#    ports:
+#     - "8080:8080"
+
+#  ws:
+#    build: ./ui/
+#    depends_on: 
+#     - ldap
+#     - mysql
+#    networks:
+#     - front
+#     - back
+#    ports:
+#     - "8888:8888"
+
+  mysql:
+    build: ./mysql/
+    networks:
+     - back
+
+  ldap:
+    build: ./ldap/
+    networks:
+     - back
+
+
+networks:
+  front:
+    driver: bridge
+  back:    
+    driver: bridge
