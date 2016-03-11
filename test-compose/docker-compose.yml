@@ -4,12 +4,12 @@ services:
   #This handles all of the http request to simple cert issues and both the SP and IdP can share the same ports.
   daemon:
     build: ./daemon/
+    command: bash -c "while ! curl -s data:3306 > /dev/null; do echo waiting for mysql to start; sleep 3; done; bin/gsh -loader"
     depends_on: 
-     - ldap
-     - mysql
+     - data
     networks:
-     - front
      - back
+     - front
 
 #  ui:
 #    build: ./ui/
@@ -33,16 +33,13 @@ services:
 #    ports:
 #     - "8888:8888"
 
-  mysql:
-    build: ./mysql/
+  data:
+    build: ./data/
+    expose:
+     - "389"
+     - "3306"
     networks:
      - back
-
-  ldap:
-    build: ./ldap/
-    networks:
-     - back
-
 
 networks:
   front:
