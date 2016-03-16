@@ -20,6 +20,7 @@ RUN yum update -y \
     && mkdir /opt/apache-tomcat-6.0.44/webapps/grouper-ws/ \
     && cd /opt/apache-tomcat-6.0.44/webapps/grouper-ws \
     && $JAVA_HOME/bin/jar xvf ../grouper-ws.war \
+    && rm ../grouper-ws.war \
     \
     && echo 'Patching Grouper WS...'\
     && mkdir /tmp/grp-ws/ \

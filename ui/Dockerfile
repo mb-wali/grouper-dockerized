@@ -20,6 +20,7 @@ RUN yum update -y \
     && mkdir /opt/apache-tomcat-6.0.44/webapps/grouper/ \
     && cd /opt/apache-tomcat-6.0.44/webapps/grouper \
     && $JAVA_HOME/bin/jar xvf ../grouper.war \
+    && rm ../grouper.war \
     \
     && echo 'Patching Grouper UI...'\
     && mkdir /tmp/grp-ui/ \
