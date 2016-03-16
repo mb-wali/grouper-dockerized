@@ -2,5 +2,5 @@ FROM unicon/grouper-ui:2.2.2
 
 MAINTAINER John Gasper <jgasper@unicon.net>
 
-COPY conf/ /opt/apache-tomcat-6.0.44/webapps/grouper/WEB-INF/classes
+COPY classes/ /opt/apache-tomcat-6.0.44/webapps/grouper/WEB-INF/classes
 COPY tomcat/ /opt/apache-tomcat-6.0.44/conf/

@@ -22,16 +22,16 @@ services:
     ports:
      - "8080:8080"
 
-#  ws:
-#    build: ./ui/
-#    depends_on: 
-#     - ldap
-#     - mysql
-#    networks:
-#     - front
-#     - back
-#    ports:
-#     - "8888:8888"
+  ws:
+    build: ./ws/
+    command: bash -c "while ! curl -s data:3306 > /dev/null; do echo waiting for mysql to start; sleep 3; done; /opt/apache-tomcat-6.0.44/bin/catalina.sh run"
+    depends_on: 
+     - data
+    networks:
+     - front
+     - back
+    ports:
+     - "8888:8080"
 
   data:
     build: ./data/
