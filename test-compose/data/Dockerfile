@@ -41,7 +41,8 @@ RUN useradd ldapadmin \
 RUN (/usr/sbin/ns-slapd -D /etc/dirsrv/slapd-dir &); \
     (/usr/bin/mysqld_safe &); \
     cd /opt/grouper.apiBinary-$GROUPER_VERSION \
-    && bin/gsh -registry -check -runscript -noprompt
+    && bin/gsh -registry -check -runscript -noprompt \
+    && bin/gsh /seed-data/bootstrap.gsh
 
 EXPOSE 389 3306
 
