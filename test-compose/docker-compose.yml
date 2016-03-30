@@ -1,7 +1,6 @@
 version: "2"
 
 services:
-  #This handles all of the http request to simple cert issues and both the SP and IdP can share the same ports.
   daemon:
     build: ./daemon/
     command: bash -c "while ! curl -s data:3306 > /dev/null; do echo waiting for mysql to start; sleep 3; done; bin/gsh -loader"
@@ -38,6 +37,13 @@ services:
     expose:
      - "389"
      - "3306"
+    networks:
+     - back
+
+  gsh:
+    build: ./gsh/
+    depends_on: 
+     - data
     networks:
      - back
 

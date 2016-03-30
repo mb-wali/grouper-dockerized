@@ -1,4 +1,4 @@
-FROM unicon/grouper-java-base:7u95
+FROM unicon/grouper-java-base:1.7.0_79
 
 MAINTAINER John Gasper <jgasper@unicon.net>
 
@@ -24,4 +24,4 @@ RUN yum update -y \
     && $JAVA_HOME/bin/java -cp .:/opt/grouperInstaller.jar edu.internet2.middleware.grouperInstaller.GrouperInstaller \
     \
     && rm -rf grouper.apiBinary-$GROUPER_VERSION.tar.gz /tmp/grp-api/  /grouper.installer.properties
-    
+
