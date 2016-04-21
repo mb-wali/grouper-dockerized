@@ -1,9 +1,9 @@
-FROM unicon/grouper-api:2.2.2
+FROM unicon/grouper-api:2.3.0
 
 MAINTAINER John Gasper <jgasper@unicon.net>
  
 COPY seed-data/ /seed-data/
-COPY conf/ /opt/grouper.apiBinary-2.2.2/conf/
+COPY conf/ /opt/grouper.apiBinary-2.3.0/conf/
 
 RUN yum install -y epel-release \
     && yum install -y 389-ds-base 389-admin 389-adminutil mariadb-server mariadb \

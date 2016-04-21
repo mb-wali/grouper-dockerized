@@ -1,4 +1,4 @@
-FROM unicon/grouper-ui:2.2.2
+FROM unicon/grouper-ui:2.3.0
 
 MAINTAINER John Gasper <jgasper@unicon.net>
 

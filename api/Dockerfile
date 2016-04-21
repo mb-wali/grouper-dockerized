@@ -2,7 +2,7 @@ FROM unicon/grouper-java-base:7u95
 
 MAINTAINER John Gasper <jgasper@unicon.net>
 
-ENV GROUPER_VERSION=2.2.2
+ENV GROUPER_VERSION=2.3.0
 
 COPY patch-scripts/ /opt/patch-scripts/
 
