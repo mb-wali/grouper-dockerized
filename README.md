@@ -13,7 +13,18 @@ The project is a collection of dockerized images of the Grouper components:
 
 With these images, adoptors can quickly start up a Grouper environment by creating customize images that are based on these images and just overlay the customized Grouper property files. An example of doing this can be found at <https://github.com/Unicon/grouper-dockerized/tree/master/test-compose>.
 
-## Grouper images
+## Quick Start
+Seeing these images in action is a easy as downloading the source in <https://github.com/Unicon/grouper-dockerized/tree/master/test-compose> and running `docker-compose up`. This command will pull the Grouper images, configure customized image from the pulled images with a self contained MySQL database and 389-ds LDAP Server populated with some basic sample data, and starts a Grouper Daemon, UI, and WS container instances.
+
+> This process will take several minutes and lots of bandwidth to initially download and build these instances. 
+
+To stop the containers, press `Ctrl+C`, then run `docker-compose down` to clean things up a bit. Calling `docker-compose up` should run much faster for subsequent runs.
+
+## Documentation
+
+> More coming soon...
+
+## Images
 The full collection of Grouper images includes:
 
 * [grouper-java-base](https://hub.docker.com/r/unicon/grouper-java-base) [![](https://badge.imagelayers.io/unicon/grouper-java-base:latest.svg)](https://imagelayers.io/?images=unicon/grouper-java-base:latest 'grouper-java-base'): This base image installs OpenJDK-based Zulu 8 Update 72 and is used by all of the other Grouper images.
