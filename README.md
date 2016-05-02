@@ -5,7 +5,7 @@ grouper-java-base: [![](https://badge.imagelayers.io/unicon/grouper-java-base:la
 
 grouper-web-base: [![](https://badge.imagelayers.io/unicon/grouper-web-base:latest.svg)](https://imagelayers.io/?images=unicon/grouper-web-base:latest 'grouper-web-base')
 
-grouper-api: [![](https://badge.imagelayers.io/unicon/grouper-api-base:latest.svg)](https://imagelayers.io/?images=unicon/grouper-api-base:latest 'grouper-api-base')
+grouper-api: [![](https://badge.imagelayers.io/unicon/grouper-api:latest.svg)](https://imagelayers.io/?images=unicon/grouper-api:latest 'grouper-api')
 
 grouper-daemon: [![](https://badge.imagelayers.io/unicon/grouper-daemon:latest.svg)](https://imagelayers.io/?images=unicon/grouper-daemon:latest 'grouper-daemon')
 
