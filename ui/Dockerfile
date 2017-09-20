@@ -25,6 +25,7 @@ RUN yum update -y \
     && echo 'Patching Grouper UI...'\
     && mkdir /tmp/grp-ui/ \
     && cd / \
+    && cp /opt/grouper.apiBinary-$GROUPER_VERSION/grouperPatchStatus.properties /opt/apache-tomcat-6.0.44/webapps/grouper/WEB-INF/ \
     && cp /opt/patch-scripts/grouper.installer-ui.properties /grouper.installer.properties \
     && $JAVA_HOME/bin/java -cp .:/opt/grouperInstaller.jar edu.internet2.middleware.grouperInstaller.GrouperInstaller \
     \
