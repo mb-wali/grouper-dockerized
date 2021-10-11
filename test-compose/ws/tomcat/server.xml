@@ -124,7 +124,7 @@
              resourceName="UserDatabase"/>
 
              <Realm className="org.apache.catalina.realm.JNDIRealm"
-                                connectionURL="ldap://data"
+                                connectionURL="ldap://openldap"
                                 userBase="ou=people,dc=example,dc=edu"
                                 userSearch="(uid={0})"
                                 userSubtree="true"

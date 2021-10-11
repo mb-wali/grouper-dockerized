@@ -3,18 +3,20 @@ version: "2"
 services:
   daemon:
     build: ./daemon/
-    command: bash -c "while ! curl -s data:3306 > /dev/null; do echo waiting for mysql to start; sleep 3; done; bin/gsh -loader"
+    command: bash -c "bin/gsh -loader"
     depends_on: 
      - data
+     - openldap
     networks:
      - back
      - front
 
   ui:
     build: ./ui/
-    command: bash -c "while ! curl -s data:3306 > /dev/null; do echo waiting for mysql to start; sleep 3; done; /opt/apache-tomcat-6.0.44/bin/catalina.sh run"
+    command: bash -c "/opt/apache-tomcat-6.0.44/bin/catalina.sh run"
     depends_on: 
      - data
+     - openldap
     networks:
      - front
      - back
@@ -23,20 +25,32 @@ services:
 
   ws:
     build: ./ws/
-    command: bash -c "while ! curl -s data:3306 > /dev/null; do echo waiting for mysql to start; sleep 3; done; /opt/apache-tomcat-6.0.44/bin/catalina.sh run"
+    command: bash -c "/opt/apache-tomcat-6.0.44/bin/catalina.sh run"
     depends_on: 
      - data
+     - openldap
     networks:
      - front
      - back
     ports:
      - "8888:8080"
 
+  # data:
+  #   build: ./data/
+  #   expose:
+  #    - "389"
+  #    - "3306"
+  #   networks:
+  #    - back
   data:
-    build: ./data/
-    expose:
-     - "389"
-     - "3306"
+    build: ./postgresql/
+    restart: "unless-stopped"
+    environment:
+      - "POSTGRES_USER=de"
+      - "POSTGRES_PASSWORD=testpassword"
+      - "POSTGRES_DB=de"
+    ports:
+      - "5432:5432"
     networks:
      - back
 
@@ -44,6 +58,45 @@ services:
     build: ./gsh/
     depends_on: 
      - data
+     - openldap
+    networks:
+     - back
+
+  openldap:
+    build: ./ldap/
+    environment:
+      LDAP_LOG_LEVEL: "256"
+      LDAP_BASE_DN: "dc=example,dc=edu"
+      LDAP_ADMIN_PASSWORD: "password"
+      LDAP_CONFIG_PASSWORD: "password"
+      LDAP_READONLY_USER: "false"
+      #LDAP_READONLY_USER_USERNAME: "readonly"
+      #LDAP_READONLY_USER_PASSWORD: "readonly"
+      LDAP_RFC2307BIS_SCHEMA: "false"
+      LDAP_BACKEND: "mdb"
+      LDAP_TLS: "true"
+      LDAP_TLS_CRT_FILENAME: "ldap.crt"
+      LDAP_TLS_KEY_FILENAME: "ldap.key"
+      LDAP_TLS_DH_PARAM_FILENAME: "dhparam.pem"
+      LDAP_TLS_CA_CRT_FILENAME: "ca.crt"
+      LDAP_TLS_ENFORCE: "false"
+      LDAP_TLS_CIPHER_SUITE: "SECURE256:-VERS-SSL3.0"
+      LDAP_TLS_VERIFY_CLIENT: "demand"
+      LDAP_REPLICATION: "false"
+      #LDAP_REPLICATION_CONFIG_SYNCPROV: 'binddn="cn=admin,cn=config" bindmethod=simple credentials="$$LDAP_CONFIG_PASSWORD" searchbase="cn=config" type=refreshAndPersist retry="60 +" timeout=1 starttls=critical'
+      #LDAP_REPLICATION_DB_SYNCPROV: 'binddn="cn=admin,$$LDAP_BASE_DN" bindmethod=simple credentials="$$LDAP_ADMIN_PASSWORD" searchbase="$$LDAP_BASE_DN" type=refreshAndPersist interval=00:00:00:10 retry="60 +" timeout=1 starttls=critical'
+      #LDAP_REPLICATION_HOSTS: "#PYTHON2BASH:['ldap://ldap.example.org','ldap://ldap2.example.org']"
+      KEEP_EXISTING_CONFIG: "false"
+      LDAP_REMOVE_CONFIG_AFTER_SETUP: "true"
+      LDAP_SSL_HELPER_PREFIX: "ldap"
+    tty: true
+    stdin_open: true
+    volumes:
+      - /var/lib/ldap
+      - /etc/ldap/slapd.d
+      - /container/service/slapd/assets/certs/
+    ports:
+      - "389:389"
     networks:
      - back
 
